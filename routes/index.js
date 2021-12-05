@@ -233,6 +233,15 @@ const constructorMethod = (app) => {
         res.render('error', {title: "Not Found", errorCode: 404});
     });
 
+    app.get('/', async (req, res) => {
+        try {            
+            res.json({'ok':'okok'});
+        } catch (e) {
+            res.status(400);
+            res.json({status: "error", errorMessage: e});
+        }
+    });
+
 };
 
 module.exports = constructorMethod
