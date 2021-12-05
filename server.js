@@ -19,6 +19,6 @@ configRoutes(app);
 app.engine('handlebars', exphbs({defaultLayout: 'main' , helpers: handlebarHelper}));
 app.set('view engine', 'handlebars');
 
-app.listen(port, '127.0.0.1', function () {
-  console.log('Service started at http://127.0.0.1:' + port + '/' + appName + '/');
+app.listen(port, '0.0.0.0', function () {
+  console.log('Service started at http://0.0.0.0:' + port + '/' + appName + '/');
 });
