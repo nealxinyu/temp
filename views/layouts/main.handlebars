@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="A dashbaord for employee skillset">
+  <meta name="author" content="Neal Chen">
+  <title>{{ title }} - Skillset</title>
+
+  <link href="/skillset/public/img/brand/favicon.png" rel="icon" type="image/png">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+  <link href="/skillset/public/vendor/font-awesome/css/all.min.css" rel="stylesheet">
+  <link type="text/css" href="/skillset/public/vendor/argon/css/argon.css" rel="stylesheet">
+  <link type="text/css" href="/skillset/public/css/main.css" rel="stylesheet">
+  {{{_sections.style}}}
+</head>
+
+<body>
+  <header>
+    <nav id="navbar-main" class="navbar navbar-expand-lg navbar-dark bg-default">
+      <div class="container-fluid">
+        <a class="navbar-brand mr-lg-5" href="/skillset/">
+          {{!-- <img alt="website logo" src="/skillset/public/img/brand/logo.png"> --}}
+          <h5 class="text-white">SKILLSET</h1>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar_global" aria-controls="navbar_global" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbar_global">          
+          <ul class="navbar-nav navbar-nav-hover align-items-center">
+            <li class="nav-item">
+              <a href="/skillset/" class="nav-link">
+                <i class="fa fa-search mr-2"></i>
+                <span class="nav-link-inner-text">Selector</span>
+              </a>
+            </li>
+            {{!-- <li class="nav-item dropdown">
+              <a href="/skillset/tbapi" class="nav-link">
+                <i class="fa fa-search mr-2"></i>
+                <span class="nav-link-inner-text">Teambook API</span>
+              </a>
+            </li> --}}
+            <li class="nav-item dropdown">
+              <a href="/skillset/chart" class="nav-link">
+                <i class="fa fa-chart-bar mr-2"></i>
+                <span class="nav-link-inner-text">Charts</span>
+              </a>
+            </li>
+            {{!-- <li class="nav-item dropdown">
+              <a href="/skillset/level" class="nav-link">
+                <i class="fa fa-clipboard mr-2"></i>
+                <span class="nav-link-inner-text">Level</span>
+              </a>
+            </li> --}}
+          </ul>
+          <ul class="navbar-nav align-items-center ml-lg-auto">
+            <li class="nav-item dropdown" data-toggle="modal" data-target="#modal-account">
+              <a href="#" class="nav-link">
+                <i class="fa fa-user mr-2"></i>
+                <span class="nav-link-inner-text"><span id='username'>{{username}}</span> <span id='userid'>{{userid}}</span></span>
+              </a>
+            </li>
+
+            {{!-- <li class="nav-item d-none d-lg-block ml-4">
+              <a href="/login" class="btn btn-primary btn-icon">
+                <span class="nav-link-inner--text">Login</span>
+              </a>
+            </li>
+            <li class="nav-item dropdown d-lg-none">
+              <a href="/login" class="nav-link">
+                <span class="nav-link-inner--text">Login</span>
+              </a>
+            </li> 
+            <li class="nav-item d-none d-lg-block ml-lg-4">
+              <a href="/signup" class="btn btn-secondary btn-icon">
+                <span class="nav-link-inner--text">Signup</span>
+              </a>
+            </li>   
+            <li class="nav-item dropdown d-lg-none">
+              <a href="/signup" class="nav-link">
+                <span class="nav-link-inner--text">Signup</span>
+              </a>
+            </li> --}}
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+
+    {{{ body }}}
+
+    <div class="modal" id="modal-account" tabindex="-1" role="dialog" aria-labelledby="modal-account" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+          <div class="modal-content">
+              {{#with (lookup persons userid)}}
+              <div class="modal-body my-2">
+                  <h4 class="font-weight-bold text-uppercase mb-4">Manage Skills</h4>
+
+                  <div id="myskills-container">
+                      {{#each this.proficiency.expert}}
+                          <div type="myskill-badge" data-skill="{{this}}" class="badge badge-myskill badge-md badge-default my-1" data-toggle="tooltip" data-placement="top" title="click to set the proficiency">
+                              <span>{{this}}</span>
+                              <span data-role="remove"></span>
+                          </div>
+                      {{/each}}
+                      {{#each this.proficiency.proficient}}
+                          <div type="myskill-badge" data-skill="{{this}}" class="badge badge-myskill badge-md badge-info my-1" data-toggle="tooltip" data-placement="top" title="click to set the proficiency">
+                              <span>{{this}}</span>
+                              <span data-role="remove"></span>
+                          </div>
+                      {{/each}}
+                      {{#each this.proficiency.junior}}
+                          <div type="myskill-badge" data-skill="{{this}}" class="badge badge-myskill badge-md badge-secondary my-1" data-toggle="tooltip" data-placement="top" title="click to set the proficiency">
+                              <span>{{this}}</span>
+                              <span data-role="remove"></span>
+                          </div>
+                      {{/each}}
+                      {{#each this.proficiency.fresh}}
+                          <div type="myskill-badge" data-skill="{{this}}" class="badge badge-myskill badge-md badge-tertiary my-1" data-toggle="tooltip" data-placement="top" title="click to set the proficiency">
+                              <span>{{this}}</span>
+                              <span data-role="remove"></span>
+                          </div>
+                      {{/each}}
+                  </div>
+                  <div id="myskills-add" class="badge badge-md badge-success my-1">
+                      <i class="fas fa-plus"></i>
+                      <input id="myskills-add-input" type="text" placeholder="Type your new skill here..." style="background: none; border:none; outline:none"></input>
+                      <i id="myskills-add-btn" class="fas fa-check"></i>
+                  </div>
+                  <div id="myskills-sync" class="badge badge-md badge-success my-1">
+                      <i class="fas fa-sync-alt"></i>
+                      <span>Sync from TeamBook</span>
+                  </div>
+              </div>
+              {{/with}}
+          </div>   
+      </div>
+  </div>
+
+
+  <div class="modal" id="modal-update-proficiency" tabindex="-1" role="dialog" aria-labelledby="modal-update-proficiency" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+          <div class="modal-content my-5">
+              <div class="modal-body text-center" id="proficiency-selector-container">
+                  <h4 class="align-center font-weight-bold">What is your proficiency for <span class="skill"></span>?</h4>
+                  <div class="row">
+                      <div class="col-3">
+                          <button type="myskill-update-proficiency" proficiency="0" data-skill="" class="btn badge badge-tertiary w-100 my-1">Fresh</button>
+                      </div>
+                      <div class="col-3">
+                          <button type="myskill-update-proficiency" proficiency="1" data-skill="" class="btn badge badge-secondary w-100 my-1">Junior</button>
+                      </div>
+                      <div class="col-3">
+                          <button type="myskill-update-proficiency" proficiency="2" data-skill="" class="btn badge badge-info w-100 my-1">Proficient</button>
+                      </div>
+                      <div class="col-3">
+                          <button type="myskill-update-proficiency" proficiency="3" data-skill="" class="btn badge badge-default w-100 my-1">Master</button>
+                      </div>
+                  </div>
+              </div>
+          </div>   
+      </div>
+  </div>
+
+  <div class="modal" id="modal-delete-skill" tabindex="-1" role="dialog" aria-labelledby="modal-delete-skill" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+          <div class="modal-content my-5">
+              <div class="modal-body text-center" id="delete-confirmation-container">
+                  <h4 class="align-center font-weight-bold">Are you sure you want to delete <span class="skill"></span>?</h4>
+                  <div class="row">
+                      <div class="offset-3 col-3">
+                          <button type="myskill-delete-skill" data-skill="" class="btn badge badge-tertiary w-100 my-1">Cancel</button>
+                      </div>
+                      <div class="col-3">
+                          <button type="myskill-delete-skill" data-skill="" class="btn badge badge-warning w-100 my-1">Delete</button>
+                      </div>
+                  </div>
+              </div>
+          </div>   
+      </div>
+  </div>
+
+  {{#unless hideFooter}}
+  <footer class="footer has-cards">
+    <div class="container-fluid">
+      <hr>
+      <div class="row align-items-center justify-content-md-between">
+        <div class="col-md-6">
+          <div class="copyright">
+            &copy; 2021 <a href="#">A dashbaord for employee skillset</a>.
+          </div>
+        </div>
+        <div class="col-md-6">
+          <ul class="nav nav-footer justify-content-end">
+            <li class="nav-item">
+              <a href="#" class="nav-link" target="_blank">Project Code</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+  {{/unless}}
+
+  <script src="/skillset/public/vendor/jquery/jquery.min.js"></script>
+  <script src="/skillset/public/vendor/popper/popper.min.js"></script>
+  <script src="/skillset/public/vendor/bootstrap/bootstrap.min.js"></script>
+  <script src="/skillset/public/vendor/argon/js/argon.min.js"></script>
+
+  <script src="/skillset/public/js/global_utils.js"></script>
+  <script src="/skillset/public/js/manage_skill.js"></script>
+  {{{_sections.script}}}
+</body>
+
+</html>

@@ -1,0 +1,123 @@
+<section class="section section-md">
+    <div class="container-fluid">
+        <div class="row card-wrapper px-5">
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-sm-12 col-lg-6 col-xl-3">
+                        <div class="card mb-2 card-stats border-0">
+                            <!-- Card body -->
+                            <div class="card-body">
+                                {{!-- <div class="row mb-4">
+                                    <div class="col">
+                                    </div>
+                                </div> --}}
+                                <h1 class="mb-0 h4 font-weight-bold text-uppercase">Search 
+                                    <small id="summary-result-count" class="text-muted">{{len persons}}</small><small class="text-muted"> in result</small>
+                                </h1>
+                                <div class="row">
+                                    <div class="col">
+                                        {{!-- <h5 class="card-title text-uppercase text-muted mb-0">Selected</h5> --}}
+                                        <div id="summary-selected-options">
+                                            <p type="card-person-role" class="badge badge-md badge-secondary my-1"></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="btn-group btn-group-toggle my-3" data-toggle="buttons">
+                                            <label class="btn btn-secondary active">
+                                            <input type="radio" name="skill-filter-and-or-condition" value="and" autocomplete="off" checked=""> all of
+                                            </label>
+                                            <label class="btn btn-secondary">
+                                            <input type="radio" name="skill-filter-and-or-condition" value="or" autocomplete="off"> one of
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <select id="skill-selector" class="form-controls w-100" tabindex="-1" multiple="multiple" placeholder="type to search skill">
+                                            {{#each skills}}
+                                                <option>{{this.[0]}}</option>
+                                            {{/each}}
+                                        </select>
+                                        <div class="my-3">
+                                            <button type="button" class="btn btn-block btn-default mb-3" data-toggle="modal" data-target="#modal-filter">More Filter</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+
+                    {{#each persons}}
+                        <div type="card-person" class="col-sm-12 col-lg-6 col-xl-3">
+                            <div class="card mb-2 d-flex flex-grow-1 border-0">
+                                <div class="card-body">
+                                    <h4 class="mb-0">{{this.name}} <small class="text-muted ml-1">{{this.id}}</small></h4>
+                                    <div class="mb-4">
+                                        <p type="card-person-role" class="badge badge-pill badge-person-info badge-md badge-warning badge-no-text-transform my-1">{{this.role}}</p>
+                                        <p type="card-person-stream" class="badge badge-pill badge-person-info badge-md badge-info badge-no-text-transform my-1">{{this.stream}}</p>
+                                    </div>
+                                    <div class="person-skills-container">
+                                        {{#each this.proficiency.expert}}
+                                            <span type="card-person-skill" class="badge badge-md badge-default my-1" data-toggle="tooltip" data-placement="right" title="Master">{{this}}</span>
+                                        {{/each}}
+                                        {{#each this.proficiency.proficient}}
+                                            <span type="card-person-skill" class="badge badge-md badge-info my-1" data-toggle="tooltip" data-placement="right" title="Proficient">{{this}}</span>
+                                        {{/each}}
+                                        {{#each this.proficiency.junior}}
+                                            <span type="card-person-skill" class="badge badge-md badge-secondary my-1" data-toggle="tooltip" data-placement="right" title="Junior">{{this}}</span>
+                                        {{/each}}
+                                        {{#each this.proficiency.fresh}}
+                                            <span type="card-person-skill" class="badge badge-md badge-tertiary my-1" data-toggle="tooltip" data-placement="right" title="Fresh">{{this}}</span>
+                                        {{/each}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {{/each}}
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+      
+<div class="modal fade" id="modal-filter" tabindex="-1" role="dialog" aria-labelledby="modal-filter" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="card bg-gradient-default">
+                <div class="card-body p-5">
+                    <h1 class="text-white display-4">Role</h1>
+                    <div class="mb-3">
+                        {{#each roles}}
+                            <span type="filter-badge-role" class="badge badge-pill badge-person-info badge-md badge-warning badge-no-text-transform my-1 op-1">{{this.[0]}}</span>
+                        {{/each}}
+                    </div>
+
+                    <h1 class="text-white display-4">Work Stream</h1>
+                    <div class="mb-3">
+                        {{#each streams}}
+                            <span type="filter-badge-stream" class="badge badge-pill badge-person-info badge-md badge-info badge-no-text-transform my-1">{{this.[0]}}</span>
+                        {{/each}}
+                    </div>
+
+                </div>
+            </div> 
+        </div>   
+    </div>
+</div>
+
+{{#section 'style'}}
+<link href="/skillset/public/vendor/select2/select2.min.css" rel="stylesheet" />
+{{/section}}
+
+{{#section 'script'}}
+{{!-- <script src="/skillset/public/vendor/sortable/Sortable.min.js"></script> --}}
+<script src="/skillset/public/vendor/select2/select2.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.6.0/bootstrap-tagsinput.min.js" integrity="sha512-SXJkO2QQrKk2amHckjns/RYjUIBCI34edl9yh0dzgw3scKu0q4Bo/dUr+sGHMUha0j9Q1Y7fJXJMaBi4xtyfDw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="/skillset/public/js/filter.js"></script>
+{{/section}}

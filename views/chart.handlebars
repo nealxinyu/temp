@@ -1,0 +1,307 @@
+<script src="/skillset/public/vendor/echarts-5.1.2/dist/echarts.min.js"></script>
+<script>
+    let rawdata = {{{json persons}}}
+    let departmentSkills = {{{json departmentSkills}}}
+</script>
+
+<section class="section section-md">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-10 offset-1 col-xl-8 offset-xl-2">
+                <div id="skill-priority-bar-chart" style="width: 100%;height:800px;"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div id="modal-bar-detail" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modal-filter" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered" style="max-width: 90%" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h4 id="modal-bar-detail-title" class="font-weight-bold text-uppercase mb-4"></h4>
+                <div class="row"></div>
+            </div>
+        </div>   
+    </div>
+</div>
+
+<section class="section section-md">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-10 offset-1 col-xl-8 offset-xl-2">
+                <div id="bar-chart" style="width: 100%; height:800px;"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section section-md">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-10 offset-1 col-xl-6 offset-xl-3">
+                <div id="pie-chart-role" style="width: 100%; height:600px;"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-10 offset-1 col-xl-6 offset-xl-3">
+                <div id="pie-chart-stream" style="width: 100%; height:600px;"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="modal fade" id="modal-filter-1" tabindex="-1" role="dialog" aria-labelledby="modal-filter-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="card bg-gradient-default">
+                <div class="card-body">
+                    <h1 class="text-white display-4">Role</h1>
+                    <div class="mb-3">
+                        {{#each roles}}
+                            <span type="filter-badge-role" class="badge badge-pill badge-person-info badge-md badge-warning badge-no-text-transform my-1 op-1">{{this.[0]}}</span>
+                        {{/each}}
+                    </div>
+
+                    <h1 class="text-white display-4">Work Stream</h1>
+                    <div class="mb-3">
+                        {{#each streams}}
+                            <span type="filter-badge-stream" class="badge badge-pill badge-person-info badge-md badge-info badge-no-text-transform my-1">{{this.[0]}}</span>
+                        {{/each}}
+                    </div>
+                </div>
+            </div> 
+        </div>   
+    </div>
+</div>
+
+<div class="modal fade" id="modal-filter-2" tabindex="-1" role="dialog" aria-labelledby="modal-filter-2" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="card bg-gradient-default">
+                <div class="card-body">
+                    <h1 class="text-white display-4">Skill</h1>
+                    
+                    <div class="form-group">
+                        <p class="text-white">
+                            <span>Search</span>
+                            <input class="form-control filter-search-input" type="search" value="" id="filter-search-input">
+                        </p>
+                    </div>
+
+                    <div class="mb-3">
+                        {{#each skills}}
+                            <span type="filter-badge-skill" class="badge badge-md badge-secondary my-1">{{this.[0]}}</span>
+                        {{/each}}
+                    </div>
+                </div>
+            </div> 
+        </div>   
+    </div>
+</div>
+
+{{#section 'script'}}
+<script src="/skillset/public/js/chart.js"></script>
+{{/section}}
+
+    
+<script type="text/javascript">
+    var barChart = echarts.init(document.getElementById('bar-chart'));
+    barChart.setOption({
+        title: {
+            text: 'Top 20 skills',
+            subtext: 'in our department'
+        },
+        tooltip: {},
+        xAxis: {
+            data: [],
+            axisLabel: {
+                interval: 'auto',
+                rotate: 70 //If the label names are too long you can manage this by rotating the label.
+            }
+        },
+        yAxis: {},
+        series: [{
+            type: 'bar',
+            data: []
+        }],
+        grid: {
+            containLabel: true,
+            left: '0%',
+            right: '0%',
+        },
+    });
+    
+    var pieChartRole = echarts.init(document.getElementById('pie-chart-role'));
+    pieChartRole.setOption({
+        title: {
+            text: 'Roles',
+            left: 'center'
+        },
+        tooltip: {
+            trigger: 'item'
+        },
+        legend: {
+            orient: 'vertical',
+            left: 'left',
+        },
+        series: [
+            {   
+                type: 'pie',
+                radius: '80%',
+                data: [],
+                emphasis: {
+                    itemStyle: {
+                        shadowBlur: 10,
+                        shadowOffsetX: 0,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    }
+                }
+            }
+        ]
+    });
+
+
+    var pieChartStream = echarts.init(document.getElementById('pie-chart-stream'));
+    pieChartStream.setOption({
+        title: {
+            text: 'Stream',
+            left: 'center'
+        },
+        tooltip: {
+            trigger: 'item'
+        },
+        legend: {
+            orient: 'vertical',
+            left: 'left',
+        },
+        series: [
+            {
+                type: 'pie',
+                radius: '80%',
+                data: [],
+                emphasis: {
+                    itemStyle: {
+                        shadowBlur: 10,
+                        shadowOffsetX: 0,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    }
+                }
+            }
+        ]
+    });
+
+
+    var skillPriorityBarChart = echarts.init(document.getElementById('skill-priority-bar-chart'));
+    skillPriorityBarChart.setOption(option = {
+        title: {
+            text: 'Skills Proficiency in our department',
+            subtext: 'skills list was comed up by our teachinical leads'
+        },
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {      
+                type: 'shadow'   
+            }
+        },
+        legend: {
+            data: ['Master', 'Proficient', 'Junior', 'Fresh']
+        },
+        grid: {
+            left: '0',
+            right: '0',
+            bottom: '0',
+            containLabel: true
+        },
+        yAxis: {
+            show: false,
+            type: 'value',
+            splitNumber: 5,
+            max: function (value) {
+                return value.max;
+            },
+        },
+        xAxis: {
+            type: 'category',
+            data: [],
+            axisLabel: {
+                interval: 0,
+                rotate: 25,
+                fontWeight: 'bold',
+                fontSize: 14,
+            }
+        },
+        series: [
+            {
+                name: 'Master',
+                type: 'bar',
+                stack: 'total',
+                label: {
+                    show: true,
+                    formatter: function(param) {
+                        return param.data == 0 ? '': param.data;
+                    }
+                },
+                emphasis: {
+                    focus: 'series'
+                },
+                color: '#5470c6',
+                data: []
+            },
+            {
+                name: 'Proficient',
+                type: 'bar',
+                stack: 'total',
+                label: {
+                    show: true,
+                    formatter: function(param) {
+                        return param.data == 0 ? '': param.data;
+                    }
+                },
+                emphasis: {
+                    focus: 'series'
+                },
+                color: '#e66',
+                data: []
+            },
+            {
+                name: 'Junior',
+                type: 'bar',
+                stack: 'total',
+                label: {
+                    show: true,
+                    formatter: function(param) {
+                        return param.data == 0 ? '': param.data;
+                    }
+                },
+                emphasis: {
+                    focus: 'series'
+                },
+                color: '#fac858',
+                data: []
+            },
+            {
+                name: 'Fresh',
+                type: 'bar',
+                stack: 'total',
+                label: {
+                    show: true,
+                    formatter: function(param) {
+                        return param.data == 0 ? '': param.data;
+                    }
+                },
+                emphasis: {
+                    focus: 'series'
+                },
+                color: '#91cc75',
+                data: []
+            },
+            {
+                name: 'Proficiency Index',
+                type: 'line',
+                smooth: false,
+                data: []
+            }
+        ]
+    });
+    
+</script>
