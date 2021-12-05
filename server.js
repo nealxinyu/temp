@@ -19,6 +19,6 @@ configRoutes(app);
 app.engine('handlebars', exphbs({defaultLayout: 'main' , helpers: handlebarHelper}));
 app.set('view engine', 'handlebars');
 
-app.listen(port, '10.244.0.59', function () {
-  console.log('Service started at http://skillset.openode.io:' + port + '/' + appName + '/');
+app.listen(port, 'localhost', function () {
+  console.log('Service started at http://localhost:' + port + '/' + appName + '/');
 });
