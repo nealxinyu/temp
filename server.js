@@ -6,7 +6,7 @@ const app = express();
 const handlebarHelper = require('./server/handlebars-helpers')
 const cookieParser = require("cookie-parser");
 
-const port = parseInt(process.env['APP_PORT'] || "8082");
+const port = parseInt(process.env['APP_PORT'] || "80");
 const appName = process.env['APP_NAME'] || "skillset"
 
 app.set('views', __dirname + '/views')
