@@ -1,0 +1,72 @@
+
+{
+    "20525216": {
+        "id": 20525216,
+        "name": "EL",
+        "role": "ITPM",
+        "stream": "IHUB HK",
+        "skills": {
+        "Project Management": 3,
+        "Scrum": 2,
+        "GCP": 1,
+        "SQL": 1,
+        "Linux": 1,
+        "JavaScript": 1,
+        "Java": 1,
+        "Data Analysis": 1,
+        "Technical Lead": 1,
+        "Data": 1,
+        "Pega": 1,
+        "team management": 1,
+        "Solution Analysis": 1,
+        "CELEBRUS": 1
+        }
+    },
+    "20712236": {
+        "id": 20712236,
+        "name": "JL",
+        "role": "Data Analyst",
+        "stream": "IHUB HK",
+        "skills": {
+        "SQL": 3,
+        "GCP": 2,
+        "Teradata": 1,
+        "Oracle": 1,
+        "PL/SQL": 1,
+        "Data Analysis": 1,
+        "Solution Analysis": 1
+        }
+    },
+    "34037436": {
+        "id": 34037436,
+        "name": "JZ",
+        "role": "Tech lead",
+        "stream": "HK Data and Consumption",
+        "skills": {
+        "PMP": 3,
+        "Scrum": 2,
+        "Mainframe": 1,
+        "SQL": 1,
+        "Java": 1,
+        "TOGAF": 1,
+        "Agile": 1,
+        "Linux Server": 1,
+        "Shell script": 1,
+        "CDC": 1,
+        "Kafka": 1,
+        "GCP": 1,
+        "Jira Project Management": 1,
+        "Project Management": 1,
+        "IBM WebSphere Application Server": 1,
+        "Datastage": 1,
+        "technical project management": 1,
+        "Core Java": 1,
+        "Project Management Professional ( PMP )": 1,
+        "teradata": 1,
+        "IBM Change Data Capture": 1,
+        "Linux/Unix": 1,
+        "Linux/Shell Scripting": 1,
+        "SQL Basics": 1
+        }
+    }
+}
