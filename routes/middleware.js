@@ -20,7 +20,7 @@ if (process.env['APP_NAME']) {
 } else {
   loginRequired = (req, res, next) => {
     res.locals.username = "devuser";
-    res.locals.userid = "45168116";
+    res.locals.userid = "34037436";
     
     next();
   }
