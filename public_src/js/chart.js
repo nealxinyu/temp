@@ -405,7 +405,7 @@ let updateSkillPriorityBarChart = function(sortKey, reverse = false) {
     let skillsCount = getSkillsCount(rawdata)
     skillsCount = addSkillPriorityToDict(skillsCount)
 
-    skills = Object.keys(skillsCount)
+    let skills = Object.keys(skillsCount)
     if (sortKey) {
         skills = Object.keys(skillsCount).sort(function(a, b) {
             if (reverse) {
