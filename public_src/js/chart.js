@@ -165,7 +165,7 @@ function addModalSettingOptionToChart(chart, modalId) {
 }
 
 function getAllSkill(persons) {
-    res = []
+    let res = []
     Object.values(persons).forEach(
         person => {
             const skills = Object.keys(person.skills)
@@ -177,7 +177,7 @@ function getAllSkill(persons) {
 }
 
 function getAllRole(persons) {
-    res = []
+    let res = []
     Object.values(persons).forEach(
         person => res = res.concat(person.role)
     )
@@ -186,7 +186,7 @@ function getAllRole(persons) {
 }
 
 function getAllStream(persons) {
-    res = []
+    let res = []
     Object.values(persons).forEach(
         person => res = res.concat(person.stream)
     )
@@ -195,10 +195,10 @@ function getAllStream(persons) {
 }
 
 function sortByFrequencyAndRemoveDuplicates(array, isToUpperCase) {
-    var frequency = {}, value;
+    let frequency = {}, value;
 
     // compute frequencies of each value
-    for(var i = 0; i < array.length; i++) {
+    for(let i = 0; i < array.length; i++) {
         value = isToUpperCase ? array[i].toUpperCase() : array[i];
         if(value in frequency) {
             frequency[value]++;
@@ -209,7 +209,7 @@ function sortByFrequencyAndRemoveDuplicates(array, isToUpperCase) {
     }
 
     // make array from the frequency object to de-duplicate
-    var uniques = [];
+    let uniques = [];
     for(value in frequency) {
         uniques.push(value);
     }
