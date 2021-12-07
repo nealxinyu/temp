@@ -41,7 +41,6 @@ $('#skill-selector').select2({
 // });
 
 $('#skill-selector').on('change',function(ele){
-    console.log( $(this).parent().find('.select2-selection__choice'))
     $(this)
         .parent()
         .find('.select2-selection__choice')
@@ -150,7 +149,7 @@ let filter_person_card_by_slected_options = function(personCards, selected, type
                 }
             })
         } else if (mode == 'and') {
-            personSkills = $(this).find(type).map(function(){
+            let personSkills = $(this).find(type).map(function(){
                 if (selected.some(x => x.toLowerCase() == $(this).text().toLowerCase())) {
                     $(this).addClass("skill-highlight")
                 }
