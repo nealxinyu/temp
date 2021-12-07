@@ -140,7 +140,7 @@ let getSlected = function(selector) {
 
 let filter_person_card_by_slected_options = function(personCards, selected, type, mode) {
     let res = personCards.filter(function() {
-        isContain = false;
+        let isContain = false;
         if (mode == 'or' || mode == null) {
             $(this).find(type).each(function() {
                 if (selected.some(x => x.toLowerCase() == $(this).text().toLowerCase())) {
