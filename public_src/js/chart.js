@@ -172,7 +172,7 @@ function getAllSkill(persons) {
             res = res.concat(skills)
         }
     )
-    res = sortByFrequencyAndRemoveDuplicates(res, isToUpperCase=true)
+    res = sortByFrequencyAndRemoveDuplicates(res, true)
     return res;
 }
 
@@ -181,7 +181,7 @@ function getAllRole(persons) {
     Object.values(persons).forEach(
         person => res = res.concat(person.role)
     )
-    res = sortByFrequencyAndRemoveDuplicates(res, isToUpperCase=false)
+    res = sortByFrequencyAndRemoveDuplicates(res, false)
     return res;
 }
 
@@ -190,7 +190,7 @@ function getAllStream(persons) {
     Object.values(persons).forEach(
         person => res = res.concat(person.stream)
     )
-    res = sortByFrequencyAndRemoveDuplicates(res, isToUpperCase=false)
+    res = sortByFrequencyAndRemoveDuplicates(res, false)
     return res;
 }
 
