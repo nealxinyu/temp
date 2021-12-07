@@ -191,7 +191,7 @@ $(".person-skills-container").click(function() {
 let showHiddenSkills = function() {
     let showhide = $(".person-skills-container .showhide")
     let icon = showhide.find('i')
-    cards = icon.closest('.person-skills-container');
+    let cards = icon.closest('.person-skills-container');
     cards.addClass('open');
     icon.removeClass('fa-angle-down');
     icon.addClass('fa-angle-up');
