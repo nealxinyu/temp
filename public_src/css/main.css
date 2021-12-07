@@ -1,0 +1,513 @@
+.footer.has-cards {
+    margin-top: 0px;
+    padding-top: 0px;
+}
+
+.footer.has-cards:before {
+    display: none;
+}
+
+.btn-delete-photo {
+    display: none;
+    right: 15px;
+    top: 10px;
+    z-index: 99;
+}
+
+.btn-hover-transform-none:hover {
+    transform: translateX(-50%);
+}
+
+.dog-img-container:hover .btn-delete-photo{
+    display: block;
+}
+
+.btn-delete-dog {
+    display: none;
+    right: 15px;
+    top: 10px;
+    z-index: 99;
+}
+
+.dog-container:hover .btn-delete-dog{
+    display: block;
+}
+
+.avatar {
+    width: 100%;
+    height: auto;
+}
+
+.single-comment {
+    padding: 0 30px 0 10px;
+    margin: 30px 0;
+}
+
+.single-comment .comment-content {
+    margin-bottom: 8px;
+    padding: 20px 35px;
+    background: #e7f0ff;
+    border-radius: 15px;
+    margin-left: 16px;
+    word-break: break-word;
+}
+
+.single-comment .comment-content p {
+    color: #333;
+    padding : 0px;
+    margin: 0px;
+}
+
+.single-comment .comment-date {
+    font-size: 12px;
+}
+
+#comment-form textarea {
+    margin: 10px 0;
+}
+
+.dog-health-info h2, .dog-info-container h2{
+    font-size: 24px;
+    display: inline;
+}
+
+p.no-data-found-alert {
+    font-size: 24px;
+    color: #32315d;
+}
+
+.dog-health-info p, .dog-info-container p{
+    font-size: 30px;
+    font-weight: 400;
+    display: inline;
+    color: #475dda;
+    margin-left: 5px;
+    margin-right: 15px;
+}
+
+#comment-form label {
+    font-size: 24px;
+}
+
+.alert-message {
+    position: fixed;
+    top: 5%;
+    left: 50%;
+    margin-left: -150px;
+    width: 300px;
+    z-index: 9999;
+}
+
+.hide-chart {
+    height: 0 !important;
+    overflow: hidden;
+}
+
+.footer .nav .nav-item .nav-link {
+    color: #333 !important;
+}
+
+.avatar-container {
+    width: 100%;
+    padding-bottom: 100%;
+    margin: 0 auto;
+    overflow: hidden;
+    position: relative;
+}
+
+.avatar-container img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    min-width: 100%;
+    min-height: 100%;
+    object-fit: cover;
+}
+
+.form-control {
+    color: #32315d !important;
+}
+
+.alert-danger {
+    background-color: #b73a51;
+}
+
+.alert-success {
+    background-color: #008b17;
+}
+
+.close {
+    opacity: .9;
+    color: #fff;
+    margin-left: 10px;
+}
+
+.close:hover, .close:focus {
+    color: #fff;
+}
+
+.close-dark {
+    opacity: .9;
+    color: #32315d;
+    margin-left: 10px;
+}
+
+.close-dark:hover, .close-dark:focus {
+    color: #32315d;
+}
+
+label {
+    color: #32315d;
+    font-size: 16px;
+    margin-bottom: 6px;
+}
+
+.signup-login-section {
+    height: 100vh;
+    min-height: 670px;
+}
+
+.tooltip-inner {
+    font-size: 12px;
+}
+
+.uploaded-file-name {
+    font-size: 16px;
+    font-weight: 400;
+    color: #32315d;
+    word-break: break-word;
+    display: contents;
+}
+
+input[type='radio']:checked + label {
+    width: 100%;
+    background: #475dda;
+    color: #fff;
+    margin: 0px;
+    padding: 6px 0;
+}
+
+input[type='radio'] + label {
+    display: block;
+    margin: 6px 0;
+}
+
+.radio-group {
+    border: solid 1px #cad1d7;
+    display: block;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.radio-group div {
+    float: left;
+    border-left: 1px solid #cad1d7;
+}
+
+.radio-group div:first-child {
+    border: 0;
+}
+
+input[type=radio] {
+    position: absolute;
+    visibility: hidden;
+    display: none;
+}
+
+.custom-select {
+    box-shadow: none;
+}
+
+p.card-text {
+    font-size: 15px;
+    margin: 0px;
+    color: #475dda;
+    font-weight: 400;
+}
+
+.card-text-gender {
+    color: #32315d;
+}
+
+.user-description p {
+    font-size: 22px;
+    font-weight: 400;
+    color: #32315d;
+}
+
+.text-warning {
+    color: #c54000 !important;
+}
+
+.home-health-management-section h2{
+    font-size: 22px;
+}
+
+.page-link {
+    color: #32315d;
+}
+
+
+/* new for skillset project */
+.badge-md {
+    font-size: 12px;
+}
+
+.badge-person-info {
+    font-size: 12px;
+}
+
+.badge-default {
+    color: #eff4ff;
+    background-color: rgb(52, 98, 175);
+}
+
+.badge-info {
+    color: #06515e;
+    background-color: rgb(205 244 252);
+}
+.badge-info.selected {  
+    color: #ffffff;
+    background-color: rgb(26 121 141);
+}
+
+.badge-warning {
+    color: #d92f07;
+    background-color: rgb(255 219 211);
+}
+.badge-warning.selected {
+    color: #ffffff;
+    background-color: rgb(162 74 54);
+}
+
+.badge-secondary {
+    color: #32325d;
+    background-color: rgba(230, 230, 230, 1);
+}
+.badge-secondary.selected {
+    color: #eff4ff;
+    background-color: rgba(52, 98, 175, .5);
+}
+
+.badge-tertiary {
+    color: #32325d;
+    background-color: rgba(246, 246, 246, 1);
+}
+.badge-tertiary.selected {
+    color: #eff4ff;
+    background-color: rgba(52, 98, 175, .5);
+}
+
+.badge-no-text-transform {
+    text-transform: none !important;
+}
+
+.filter-search-input {
+    width: 40%;
+    height: 32px;
+    display: inline;
+}
+
+.opacity-50 {
+    opacity: 0.5;
+}
+
+.skill-highlight {
+    border-left: 3px solid #fb6340;
+}
+
+.select2-selection {
+    padding: 4px 10px !important;
+}
+
+.select2-selection textarea {
+    margin: 0 !important;
+    height: 30px  !important;
+}
+
+.select2-selection button {
+    border: none !important;
+    height: 100%;
+}
+
+.select2-selection .select2-search {
+    vertical-align: middle !important;
+}
+
+.select2-dropdown {
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.select2-selection {
+    border: solid #172b4d 2px !important;
+}
+
+.modal-backdrop {
+    opacity: 0.6 !important;
+}
+
+
+.person-skills-container > span:nth-child(n+15) {
+    position:absolute;
+    visibility: hidden;
+    opacity: 0;
+    display: block;
+    transition: visibility 0s, opacity 0.5s linear;
+}
+
+.person-skills-container.open > span:nth-child(n+15) {
+    position: static;
+    visibility: visible;
+    opacity: 1;
+    display: inline-block;
+}
+
+.person-skills-container .showhide {
+    color: #aaa;
+    text-align: center;
+}
+
+.badge-myskill {
+    position: relative;
+    transition: all .15s ease;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.badge-myskill:hover [data-role=remove], .badge-myskill:hover [data-role=setting] {
+    opacity: 0.4;
+}
+
+.badge-myskill [data-role=remove]:hover {
+    background: #d20000;
+    opacity: 1;
+}
+
+.badge-myskill [data-role=remove] {
+    margin-left: 0px;
+    cursor: pointer;
+    transform: translate(0,-50%);
+    color: #ffffff;
+    position: absolute;
+    top: 16%;
+    opacity: 0;
+    transition: all .15s ease;
+    background: #ff8787;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    z-index: 999;
+}
+
+.badge-myskill [data-role=setting] {
+    /* margin-left: -18px; */
+    cursor: pointer;
+    transform: translate(0,-50%);
+    color: #32325d;
+    position: absolute;
+    top: 47%;
+    opacity: 0;
+    transition: all .15s ease;
+}
+
+.badge-myskill [data-role=setting]:after {
+    font-size: 10px;    
+    font-family: "Font Awesome 5 Free";
+    content: "\f013";
+    display: inline-block;
+    padding-right: 3px;
+    vertical-align: middle;
+    font-weight: 900;
+}
+
+.badge-myskill [data-role=remove]:after {
+    font-size: 16px;
+    content: '×';
+    vertical-align: -5px;
+}
+
+.btn.badge-default:hover {
+    color: #fff;
+}
+
+#myskills-add {
+    position: relative;
+    padding-right: 200px;
+    transition: all .15s ease;
+}
+
+#myskills-add input, #myskills-add-btn {
+    position: absolute;
+    transform: translate(0,-50%);
+    top: 50%;
+    visibility: visible;
+    opacity: 1;
+    transition: all .15s ease;
+    font-weight: bold;
+}
+
+#myskills-add input {
+    width: 170px;
+    margin-left: 5px;
+    color: #32325d; 
+}
+
+#myskills-add-btn {
+    width: auto;
+    margin-left: 175px;
+    cursor: pointer;
+}
+
+#myskills-add i {
+    font-size: 10px;
+}
+
+#myskills-sync {
+    position: relative;
+    transition: all .15s ease;
+    cursor: pointer;
+}
+
+#myskills-sync:hover {
+    padding-right: 170px;
+}
+
+#myskills-sync:hover span {
+    visibility: visible;
+    opacity: 1;
+}
+
+#myskills-sync span {
+    position: absolute;
+    margin-left: 0px;
+    transform: translate(0,-50%);
+    color: #32325d;
+    top: 50%;
+    visibility: hidden;
+    opacity: 0;
+    width: 162px;
+    transition: all .15s ease;
+}
+
+#myskills-sync i {
+    font-size: 10px;
+}
+
+#modal-update-proficiency .modal-body, #modal-delete-skill .modal-body {
+    padding-top: 80px;
+    padding-bottom: 80px;
+}
+
+#modal-update-proficiency h4, #modal-delete-skill h4 {
+    padding-bottom: 40px;
+}
+
+#modal-update-proficiency button, #modal-delete-skill button {
+    padding: 40px 0;
+}
+
+#modal-update-proficiency .skill, #modal-delete-skill .skill {
+    color: #fb6340
+    ;
+}
