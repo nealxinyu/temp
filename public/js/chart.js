@@ -1,5 +1,23 @@
 "use strict";
 
+function _objectValues(obj) {
+  var values = [];
+  var keys = Object.keys(obj);
+
+  for (var k = 0; k < keys.length; k++) values.push(obj[keys[k]]);
+
+  return values;
+}
+
+function _objectEntries(obj) {
+  var entries = [];
+  var keys = Object.keys(obj);
+
+  for (var k = 0; k < keys.length; k++) entries.push([keys[k], obj[keys[k]]]);
+
+  return entries;
+}
+
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -52,7 +70,7 @@ var updateBarChart = function updateBarChart() {
     filtered = rawdata;
   } else {
     if (selectedStreams.length == 0) {
-      Object.values(rawdata).forEach(function (person) {
+      _objectValues(rawdata).forEach(function (person) {
         if (selectedRoles.some(function (x) {
           return x.toLowerCase() == person.role.toLowerCase();
         })) {
@@ -60,7 +78,7 @@ var updateBarChart = function updateBarChart() {
         }
       });
     } else if (selectedRoles.length == 0) {
-      Object.values(rawdata).forEach(function (person) {
+      _objectValues(rawdata).forEach(function (person) {
         if (selectedStreams.some(function (x) {
           return x.toLowerCase() == person.stream.toLowerCase();
         })) {
@@ -69,7 +87,8 @@ var updateBarChart = function updateBarChart() {
       });
     } else {
       var temp = [];
-      Object.values(rawdata).forEach(function (person) {
+
+      _objectValues(rawdata).forEach(function (person) {
         if (selectedRoles.some(function (x) {
           return x.toLowerCase() == person.role.toLowerCase();
         })) {
@@ -173,7 +192,7 @@ var updatePieChart = function updatePieChart() {
     _iterator3.f();
   }
 
-  Object.values(rawdata).forEach(function (person) {
+  _objectValues(rawdata).forEach(function (person) {
     if (Object.keys(person.skills).some(function (x) {
       return x.toLowerCase() == selectedSkill.toLowerCase();
     })) {
@@ -181,6 +200,7 @@ var updatePieChart = function updatePieChart() {
       roleChartData[person.role].value += 1;
     }
   });
+
   var roleChartDataList = [];
   var streamChartDataList = [];
 
@@ -232,28 +252,34 @@ function addModalSettingOptionToChart(chart, modalId) {
 
 function getAllSkill(persons) {
   var res = [];
-  Object.values(persons).forEach(function (person) {
+
+  _objectValues(persons).forEach(function (person) {
     var skills = Object.keys(person.skills);
     res = res.concat(skills);
   });
+
   res = sortByFrequencyAndRemoveDuplicates(res, true);
   return res;
 }
 
 function getAllRole(persons) {
   var res = [];
-  Object.values(persons).forEach(function (person) {
+
+  _objectValues(persons).forEach(function (person) {
     return res = res.concat(person.role);
   });
+
   res = sortByFrequencyAndRemoveDuplicates(res, false);
   return res;
 }
 
 function getAllStream(persons) {
   var res = [];
-  Object.values(persons).forEach(function (person) {
+
+  _objectValues(persons).forEach(function (person) {
     return res = res.concat(person.stream);
   });
+
   res = sortByFrequencyAndRemoveDuplicates(res, false);
   return res;
 }
@@ -415,9 +441,11 @@ var sortByParams = function sortByParams() {
 
 var updateBarDetailModal = function updateBarDetailModal(modalSelector, proficiencyName, skillName) {
   var proficiencyNumber = getProficiencyNumber(proficiencyName);
-  var filteredPersonData = Object.values(rawdata).filter(function (person) {
+
+  var filteredPersonData = _objectValues(rawdata).filter(function (person) {
     return proficiencyNumber == person['skills'][skillName];
   });
+
   $(modalSelector + ' #modal-bar-detail-title').html("".concat(filteredPersonData.length, " <span style=\"color:red\">").concat(proficiencyName, "</span> in <span style=\"color:red\">").concat(skillName, "</span>"));
   $(modalSelector + ' .row').html(getPersonCardHtml(filteredPersonData));
   $('span[type=modal-card-person-skill]').each(function () {
@@ -608,8 +636,8 @@ function getSkillsCount(rawdata) {
     _iterator12.f();
   }
 
-  Object.values(rawdata).forEach(function (person) {
-    for (var _i3 = 0, _Object$entries = Object.entries(person.skills); _i3 < _Object$entries.length; _i3++) {
+  _objectValues(rawdata).forEach(function (person) {
+    for (var _i3 = 0, _Object$entries = _objectEntries(person.skills); _i3 < _Object$entries.length; _i3++) {
       var _Object$entries$_i = _slicedToArray(_Object$entries[_i3], 2),
           key = _Object$entries$_i[0],
           value = _Object$entries$_i[1];
@@ -638,6 +666,7 @@ function getSkillsCount(rawdata) {
       }
     }
   });
+
   return skillsCount;
 }
 
