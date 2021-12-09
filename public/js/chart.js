@@ -1,1 +1,705 @@
-"use strict";function _slicedToArray(e,r){return _arrayWithHoles(e)||_iterableToArrayLimit(e,r)||_unsupportedIterableToArray(e,r)||_nonIterableRest()}function _nonIterableRest(){throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}function _iterableToArrayLimit(e,r){var t=null==e?null:"undefined"!=typeof Symbol&&e[Symbol.iterator]||e["@@iterator"];if(null!=t){var a,n,o=[],i=!0,l=!1;try{for(t=t.call(e);!(i=(a=t.next()).done)&&(o.push(a.value),!r||o.length!==r);i=!0);}catch(e){l=!0,n=e}finally{try{i||null==t.return||t.return()}finally{if(l)throw n}}return o}}function _arrayWithHoles(e){if(Array.isArray(e))return e}function _createForOfIteratorHelper(e,r){var t="undefined"!=typeof Symbol&&e[Symbol.iterator]||e["@@iterator"];if(!t){if(Array.isArray(e)||(t=_unsupportedIterableToArray(e))||r&&e&&"number"==typeof e.length){t&&(e=t);var a=0,r=function(){};return{s:r,n:function(){return a>=e.length?{done:!0}:{done:!1,value:e[a++]}},e:function(e){throw e},f:r}}throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}var n,o=!0,i=!1;return{s:function(){t=t.call(e)},n:function(){var e=t.next();return o=e.done,e},e:function(e){i=!0,n=e},f:function(){try{o||null==t.return||t.return()}finally{if(i)throw n}}}}function _unsupportedIterableToArray(e,r){if(e){if("string"==typeof e)return _arrayLikeToArray(e,r);var t=Object.prototype.toString.call(e).slice(8,-1);return"Map"===(t="Object"===t&&e.constructor?e.constructor.name:t)||"Set"===t?Array.from(e):"Arguments"===t||/^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t)?_arrayLikeToArray(e,r):void 0}}function _arrayLikeToArray(e,r){(null==r||r>e.length)&&(r=e.length);for(var t=0,a=new Array(r);t<r;t++)a[t]=e[t];return a}$("span[type=filter-badge-role],span[type=filter-badge-stream]").on("click",function(){$(this).hasClass("selected")?$(this).removeClass("selected"):$(this).addClass("selected"),updateBarChart()}),$("span[type=filter-badge-skill]").on("click",function(){$("span[type=filter-badge-skill]").removeClass("selected"),$(this).addClass("selected"),$("#modal-filter-2").modal("hide"),updatePieChart()}),$("#filter-search-input").on("input",function(){var e=$(this).val();searchKeyword(e)});var getSlectedOptions=function(e){var r=[];return $("span[type="+e+"].selected").each(function(){r.push($(this).text())}),r},updateBarChart=function(){var e=getSlectedOptions("filter-badge-role"),t=getSlectedOptions("filter-badge-stream"),a=[];if(0==e.length&&0==t.length)a=rawdata;else if(0==t.length)Object.values(rawdata).forEach(function(r){e.some(function(e){return e.toLowerCase()==r.role.toLowerCase()})&&a.push(r)});else if(0==e.length)Object.values(rawdata).forEach(function(r){t.some(function(e){return e.toLowerCase()==r.stream.toLowerCase()})&&a.push(r)});else{var n=[];Object.values(rawdata).forEach(function(r){e.some(function(e){return e.toLowerCase()==r.role.toLowerCase()})&&n.push(r)});for(var o=0,i=n;o<i.length;o++)!function(){var r=i[o];t.some(function(e){return e.toLowerCase()==r.stream.toLowerCase()})&&a.push(r)}()}var r,l=[],s=[],c=_createForOfIteratorHelper(getAllSkill(a));try{for(c.s();!(r=c.n()).done;){var d=r.value;l.push(d[0]),s.push(d[1])}}catch(e){c.e(e)}finally{c.f()}barChart.setOption({xAxis:{data:l.slice(0,20)},series:[{data:s.slice(0,20)}]})},updatePieChart=function(){var e=getSlectedOptions("filter-badge-skill");if(e.length){var r,t=e[0],a=getAllRole(rawdata),e=getAllStream(rawdata),n={},o=_createForOfIteratorHelper(a);try{for(o.s();!(r=o.n()).done;){var i=r.value;n[i[0]]={value:0,name:i[0]}}}catch(e){o.e(e)}finally{o.f()}var l,s={},c=_createForOfIteratorHelper(e);try{for(c.s();!(l=c.n()).done;){var d=l.value;s[d[0]]={value:0,name:d[0]}}}catch(e){c.e(e)}finally{c.f()}Object.values(rawdata).forEach(function(e){Object.keys(e.skills).some(function(e){return e.toLowerCase()==t.toLowerCase()})&&(s[e.stream].value+=1,n[e.role].value+=1)});var u,f=[],p=[];for(u in n)f.push(n[u]);for(u in s)p.push(s[u]);pieChartRole.setOption({series:[{data:f}]}),pieChartStream.setOption({series:[{data:p}]})}},initCharts=function(){addModalSettingOptionToChart(barChart,"#modal-filter-1"),addModalSettingOptionToChart(pieChartRole,"#modal-filter-2"),addModalSettingOptionToChart(pieChartStream,"#modal-filter-2"),updateBarChart(),$("span[type=filter-badge-skill]").first().click()};function addModalSettingOptionToChart(e,r){e.setOption({toolbox:{feature:{mySetting:{show:!0,icon:"path://M22.2,14.4L21,13.7c-1.3-0.8-1.3-2.7,0-3.5l1.2-0.7c1-0.6,1.3-1.8,0.7-2.7l-1-1.7c-0.6-1-1.8-1.3-2.7-0.7   L18,5.1c-1.3,0.8-3-0.2-3-1.7V2c0-1.1-0.9-2-2-2h-2C9.9,0,9,0.9,9,2v1.3c0,1.5-1.7,2.5-3,1.7L4.8,4.4c-1-0.6-2.2-0.2-2.7,0.7   l-1,1.7C0.6,7.8,0.9,9,1.8,9.6L3,10.3C4.3,11,4.3,13,3,13.7l-1.2,0.7c-1,0.6-1.3,1.8-0.7,2.7l1,1.7c0.6,1,1.8,1.3,2.7,0.7L6,18.9   c1.3-0.8,3,0.2,3,1.7V22c0,1.1,0.9,2,2,2h2c1.1,0,2-0.9,2-2v-1.3c0-1.5,1.7-2.5,3-1.7l1.2,0.7c1,0.6,2.2,0.2,2.7-0.7l1-1.7   C23.4,16.2,23.1,15,22.2,14.4z M12,16c-2.2,0-4-1.8-4-4c0-2.2,1.8-4,4-4s4,1.8,4,4C16,14.2,14.2,16,12,16z",onclick:function(){return $(r).modal()}}}}})}function getAllSkill(e){var r=[];return Object.values(e).forEach(function(e){e=Object.keys(e.skills);r=r.concat(e)}),r=sortByFrequencyAndRemoveDuplicates(r,!0)}function getAllRole(e){var r=[];return Object.values(e).forEach(function(e){return r=r.concat(e.role)}),r=sortByFrequencyAndRemoveDuplicates(r,!1)}function getAllStream(e){var r=[];return Object.values(e).forEach(function(e){return r=r.concat(e.stream)}),r=sortByFrequencyAndRemoveDuplicates(r,!1)}function sortByFrequencyAndRemoveDuplicates(e,r){for(var t,a={},n=0;n<e.length;n++)(t=r?e[n].toUpperCase():e[n])in a?a[t]++:a[t]=1;var o=[];for(t in a)o.push(t);for(var o=o.sort(function(e,r){return a[r]-a[e]}),i=[],l=0;l<o.length;l++)i.push([o[l],a[o[l]]]);return i}initCharts();var updateSummary=function(e){$("#summary-result-count").text(e.result.length),$("#summary-selected-options").empty();var r,t=_createForOfIteratorHelper(e.selectedRoles);try{for(t.s();!(r=t.n()).done;){var a=r.value;$("#summary-selected-options").append("<span class='badge badge-pill badge-person-info badge-md badge-warning badge-no-text-transform m-1'>"+a+"</span>")}}catch(e){t.e(e)}finally{t.f()}var n,o=_createForOfIteratorHelper(e.selectedStreams);try{for(o.s();!(n=o.n()).done;){var i=n.value;$("#summary-selected-options").append("<span class='badge badge-pill badge badge-pill badge-person-info badge-md badge-info badge-no-text-transform m-1'>"+i+"</span>")}}catch(e){o.e(e)}finally{o.f()}var l,s=_createForOfIteratorHelper(e.selectedSkills);try{for(s.s();!(l=s.n()).done;){var c=l.value;$("#summary-selected-options").append("<span class='badge badge-md badge-secondary m-1'>"+c+"</span>")}}catch(e){s.e(e)}finally{s.f()}},filter_person_card_by_slected_options=function(e,t,r){return e.filter(function(){return isContain=!1,$(this).find(r).each(function(){var r=this;t.some(function(e){return e.toLowerCase()==$(r).text().toLowerCase()})&&(isContain=!0)}),isContain})},searchKeyword=function(e){$("span[type=filter-badge-skill]").removeClass("d-none"),$("span[type=filter-badge-skill]").each(function(){-1==$(this).text().toLowerCase().search(e.toLowerCase())&&$(this).addClass("d-none")})};skillPriorityBarChart.on("click",function(e){var r="#modal-bar-detail";updateBarDetailModal(r,e.seriesName,e.name).length&&$(r).modal()});var sortByPriority=function(){skillPriorityBarChart.setOption({legend:{selected:{Fresh:!0,Junior:!0,Proficient:!0,Master:!0}}}),updateSkillPriorityBarChart("priority",!0)},sortBy=0,sortByParams=function(){var e=["Fresh","Junior","Proficient","Master"][sortBy++%4];updateSkillPriorityBarChart(e);var r={Fresh:!1,Junior:!1,Proficient:!1,Master:!1};r[e]=!0,skillPriorityBarChart.setOption({legend:{selected:r}})},updateBarDetailModal=function(e,r,t){var a=getProficiencyNumber(r),n=Object.values(rawdata).filter(function(e){return a==e.skills[t]});return $(e+" #modal-bar-detail-title").html("".concat(n.length,' <span style="color:red">').concat(r,'</span> in <span style="color:red">').concat(t,"</span>")),$(e+" .row").html(getPersonCardHtml(n)),$("span[type=modal-card-person-skill]").each(function(){$(this).text().toLowerCase()==t.toLowerCase()&&$(this).addClass("skill-highlight")}),n},getPersonCardHtml=function(e){var r,t="",a=_createForOfIteratorHelper(e);try{for(a.s();!(r=a.n()).done;){var n,o,i,l,s=r.value;if(t+='\n        <div type="modal-card-person" class="col-sm-12 col-lg-4 col-xl-4">\n            <div class="card my-2 d-flex flex-grow-1 border-0">\n                <div class="card-body">\n                    <h4 class="mb-0">'.concat(s.name,'</h4>\n                    <div class="mb-4">\n                        <p class="text-muted mb-0">').concat(s.id,"</p>\n                    </div>\n        "),null!=s&&null!==(n=s.proficiency)&&void 0!==n&&n.expert){var c,d=_createForOfIteratorHelper(s.proficiency.expert);try{for(d.s();!(c=d.n()).done;){var u=c.value;t+='\n<span type="modal-card-person-skill" class="badge badge-md badge-default my-1">'.concat(u,"</span>")}}catch(e){d.e(e)}finally{d.f()}}if(null!=s&&null!==(o=s.proficiency)&&void 0!==o&&o.proficient){var f,p=_createForOfIteratorHelper(s.proficiency.proficient);try{for(p.s();!(f=p.n()).done;){var y=f.value;t+='\n<span type="modal-card-person-skill" class="badge badge-md badge-info my-1">'.concat(y,"</span>")}}catch(e){p.e(e)}finally{p.f()}}if(null!=s&&null!==(i=s.proficiency)&&void 0!==i&&i.junior){var h,v=_createForOfIteratorHelper(s.proficiency.junior);try{for(v.s();!(h=v.n()).done;){var m=h.value;t+='\n<span type="modal-card-person-skill" class="badge badge-md badge-secondary my-1">'.concat(m,"</span>")}}catch(e){v.e(e)}finally{v.f()}}if(null!=s&&null!==(l=s.proficiency)&&void 0!==l&&l.fresh){var b,g=_createForOfIteratorHelper(s.proficiency.fresh);try{for(g.s();!(b=g.n()).done;){var C=b.value;t+='\n<span type="modal-card-person-skill" class="badge badge-md badge-secondary opacity-50 my-1">'.concat(C,"</span>")}}catch(e){g.e(e)}finally{g.f()}}t+="\n                </div>\n            </div>\n        </div>\n        "}}catch(e){a.e(e)}finally{a.f()}return t},getProficiencyNumber=function(e){return{Fresh:0,Junior:1,Proficient:2,Master:3}[e]},addSkillPriorityToDict=function(e){var r,t=departmentSkills;for(r in e){var a=t[r];e[r].priority=void 0===a?999:a}return e},updateSkillPriorityBarChart=function(t){var a=1<arguments.length&&void 0!==arguments[1]&&arguments[1],n=getSkillsCount(rawdata),n=addSkillPriorityToDict(n),e=Object.keys(n);t&&(e=Object.keys(n).sort(function(e,r){return a?n[e][t]-n[r][t]:n[r][t]-n[e][t]}));var r=getDataForStackedBarChart(n,e);skillPriorityBarChart.setOption({xAxis:{data:e},series:[{name:"Fresh",data:r.Fresh},{name:"Junior",data:r.Junior},{name:"Proficient",data:r.Proficient},{name:"Master",data:r.Master},{name:"Proficiency Index",data:r["Proficiency Index"]}]})};function getSkillsCount(e){var r,o={},t=_createForOfIteratorHelper(departmentSkills);try{for(t.s();!(r=t.n()).done;){var a=r.value;o[a]={Fresh:0,Junior:0,Proficient:0,Master:0}}}catch(e){t.e(e)}finally{t.f()}return Object.values(e).forEach(function(e){for(var r=0,t=Object.entries(e.skills);r<t.length;r++){var a=_slicedToArray(t[r],2),n=a[0],a=a[1];if(n in o)switch(a){case 0:o[n].Fresh+=1;break;case 1:o[n].Junior+=1;break;case 2:o[n].Proficient+=1;break;case 3:o[n].Master+=1}}}),o}function getDataForStackedBarChart(e,r){var t,a={Fresh:[],Junior:[],Proficient:[],Master:[],"Proficiency Index":[]},n=_createForOfIteratorHelper(r);try{for(n.s();!(t=n.n()).done;){var o=t.value;a.Fresh.push(e[o].Fresh),a.Junior.push(e[o].Junior),a.Proficient.push(e[o].Proficient),a.Master.push(e[o].Master)}}catch(e){n.e(e)}finally{n.f()}return a["Proficiency Index"]=getProficiencyIndex(a),a}function getProficiencyIndex(e){for(var r=[],t=0;t<e.Fresh.length;t++){var a=Math.round(0*e.Fresh[t]+.34*e.Junior[t]+.67*e.Proficient[t]+ +e.Master[t]);r.push(a)}return r}var initSkillPriorityChart=function(){skillPriorityBarChart.setOption({toolbox:{feature:{mySortByParams:{show:!0,icon:"path://M0 11.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-2zm4-3a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5v5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-5zm4-3a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-8zm4-3a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5v11a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-11z",onclick:sortByParams},mySortByPriority:{show:!0,icon:"path://M2.5 2v6h6M2.66 15.57a10 10 0 1 0 .57-8.38",onclick:sortByPriority}}}}),updateSkillPriorityBarChart("priority",!0)};initSkillPriorityChart();
+"use strict";
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e2) { throw _e2; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e3) { didErr = true; err = _e3; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+$('span[type=filter-badge-role],span[type=filter-badge-stream]').on('click', function () {
+  if ($(this).hasClass("selected")) {
+    $(this).removeClass("selected");
+  } else {
+    $(this).addClass("selected");
+  }
+
+  updateBarChart();
+});
+$('span[type=filter-badge-skill]').on('click', function () {
+  $('span[type=filter-badge-skill]').removeClass("selected");
+  $(this).addClass("selected");
+  $('#modal-filter-2').modal('hide');
+  updatePieChart();
+});
+$('#filter-search-input').on('input', function () {
+  var keyword = $(this).val();
+  searchKeyword(keyword);
+});
+
+var getSlectedOptions = function getSlectedOptions(type) {
+  var res = [];
+  $('span[type=' + type + '].selected').each(function () {
+    res.push($(this).text());
+  });
+  return res;
+};
+
+var updateBarChart = function updateBarChart() {
+  // get selected options
+  var selectedRoles = getSlectedOptions("filter-badge-role");
+  var selectedStreams = getSlectedOptions("filter-badge-stream");
+  var filtered = [];
+
+  if (selectedRoles.length == 0 && selectedStreams.length == 0) {
+    filtered = rawdata;
+  } else {
+    if (selectedStreams.length == 0) {
+      Object.values(rawdata).forEach(function (person) {
+        if (selectedRoles.some(function (x) {
+          return x.toLowerCase() == person.role.toLowerCase();
+        })) {
+          filtered.push(person);
+        }
+      });
+    } else if (selectedRoles.length == 0) {
+      Object.values(rawdata).forEach(function (person) {
+        if (selectedStreams.some(function (x) {
+          return x.toLowerCase() == person.stream.toLowerCase();
+        })) {
+          filtered.push(person);
+        }
+      });
+    } else {
+      var temp = [];
+      Object.values(rawdata).forEach(function (person) {
+        if (selectedRoles.some(function (x) {
+          return x.toLowerCase() == person.role.toLowerCase();
+        })) {
+          temp.push(person);
+        }
+      });
+
+      var _loop = function _loop() {
+        var person = _temp[_i];
+
+        if (selectedStreams.some(function (x) {
+          return x.toLowerCase() == person.stream.toLowerCase();
+        })) {
+          filtered.push(person);
+        }
+      };
+
+      for (var _i = 0, _temp = temp; _i < _temp.length; _i++) {
+        _loop();
+      }
+    }
+  }
+
+  var skills = getAllSkill(filtered);
+  var labels = [];
+  var data = [];
+
+  var _iterator = _createForOfIteratorHelper(skills),
+      _step;
+
+  try {
+    for (_iterator.s(); !(_step = _iterator.n()).done;) {
+      var skill = _step.value;
+      labels.push(skill[0]);
+      data.push(skill[1]);
+    }
+  } catch (err) {
+    _iterator.e(err);
+  } finally {
+    _iterator.f();
+  }
+
+  barChart.setOption({
+    xAxis: {
+      data: labels.slice(0, 20)
+    },
+    series: [{
+      data: data.slice(0, 20)
+    }]
+  });
+};
+
+var updatePieChart = function updatePieChart() {
+  // get selected options
+  var selectedSkills = getSlectedOptions("filter-badge-skill");
+  var selectedSkill;
+
+  if (selectedSkills.length) {
+    selectedSkill = selectedSkills[0];
+  } else {
+    return;
+  }
+
+  var roles = getAllRole(rawdata);
+  var steams = getAllStream(rawdata);
+  var roleChartData = {};
+
+  var _iterator2 = _createForOfIteratorHelper(roles),
+      _step2;
+
+  try {
+    for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+      var role = _step2.value;
+      roleChartData[role[0]] = {
+        value: 0,
+        name: role[0]
+      };
+    }
+  } catch (err) {
+    _iterator2.e(err);
+  } finally {
+    _iterator2.f();
+  }
+
+  var streamChartData = {};
+
+  var _iterator3 = _createForOfIteratorHelper(steams),
+      _step3;
+
+  try {
+    for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
+      var stream = _step3.value;
+      streamChartData[stream[0]] = {
+        value: 0,
+        name: stream[0]
+      };
+    }
+  } catch (err) {
+    _iterator3.e(err);
+  } finally {
+    _iterator3.f();
+  }
+
+  Object.values(rawdata).forEach(function (person) {
+    if (Object.keys(person.skills).some(function (x) {
+      return x.toLowerCase() == selectedSkill.toLowerCase();
+    })) {
+      streamChartData[person.stream].value += 1;
+      roleChartData[person.role].value += 1;
+    }
+  });
+  var roleChartDataList = [];
+  var streamChartDataList = [];
+
+  for (var key in roleChartData) {
+    roleChartDataList.push(roleChartData[key]);
+  }
+
+  for (var key in streamChartData) {
+    streamChartDataList.push(streamChartData[key]);
+  }
+
+  pieChartRole.setOption({
+    series: [{
+      data: roleChartDataList
+    }]
+  });
+  pieChartStream.setOption({
+    series: [{
+      data: streamChartDataList
+    }]
+  });
+};
+
+var initCharts = function initCharts() {
+  addModalSettingOptionToChart(barChart, '#modal-filter-1');
+  addModalSettingOptionToChart(pieChartRole, '#modal-filter-2');
+  addModalSettingOptionToChart(pieChartStream, '#modal-filter-2');
+  updateBarChart();
+  $('span[type=filter-badge-skill]').first().click();
+};
+
+initCharts();
+
+function addModalSettingOptionToChart(chart, modalId) {
+  chart.setOption({
+    toolbox: {
+      feature: {
+        mySetting: {
+          show: true,
+          icon: 'path://M22.2,14.4L21,13.7c-1.3-0.8-1.3-2.7,0-3.5l1.2-0.7c1-0.6,1.3-1.8,0.7-2.7l-1-1.7c-0.6-1-1.8-1.3-2.7-0.7   L18,5.1c-1.3,0.8-3-0.2-3-1.7V2c0-1.1-0.9-2-2-2h-2C9.9,0,9,0.9,9,2v1.3c0,1.5-1.7,2.5-3,1.7L4.8,4.4c-1-0.6-2.2-0.2-2.7,0.7   l-1,1.7C0.6,7.8,0.9,9,1.8,9.6L3,10.3C4.3,11,4.3,13,3,13.7l-1.2,0.7c-1,0.6-1.3,1.8-0.7,2.7l1,1.7c0.6,1,1.8,1.3,2.7,0.7L6,18.9   c1.3-0.8,3,0.2,3,1.7V22c0,1.1,0.9,2,2,2h2c1.1,0,2-0.9,2-2v-1.3c0-1.5,1.7-2.5,3-1.7l1.2,0.7c1,0.6,2.2,0.2,2.7-0.7l1-1.7   C23.4,16.2,23.1,15,22.2,14.4z M12,16c-2.2,0-4-1.8-4-4c0-2.2,1.8-4,4-4s4,1.8,4,4C16,14.2,14.2,16,12,16z',
+          onclick: function onclick() {
+            return $(modalId).modal();
+          }
+        }
+      }
+    }
+  });
+}
+
+function getAllSkill(persons) {
+  var res = [];
+  Object.values(persons).forEach(function (person) {
+    var skills = Object.keys(person.skills);
+    res = res.concat(skills);
+  });
+  res = sortByFrequencyAndRemoveDuplicates(res, true);
+  return res;
+}
+
+function getAllRole(persons) {
+  var res = [];
+  Object.values(persons).forEach(function (person) {
+    return res = res.concat(person.role);
+  });
+  res = sortByFrequencyAndRemoveDuplicates(res, false);
+  return res;
+}
+
+function getAllStream(persons) {
+  var res = [];
+  Object.values(persons).forEach(function (person) {
+    return res = res.concat(person.stream);
+  });
+  res = sortByFrequencyAndRemoveDuplicates(res, false);
+  return res;
+}
+
+function sortByFrequencyAndRemoveDuplicates(array, isToUpperCase) {
+  var frequency = {},
+      value; // compute frequencies of each value
+
+  for (var i = 0; i < array.length; i++) {
+    value = isToUpperCase ? array[i].toUpperCase() : array[i];
+
+    if (value in frequency) {
+      frequency[value]++;
+    } else {
+      frequency[value] = 1;
+    }
+  } // make array from the frequency object to de-duplicate
+
+
+  var uniques = [];
+
+  for (value in frequency) {
+    uniques.push(value);
+  } // sort the uniques array in descending order by frequency
+
+
+  uniques = uniques.sort(function (a, b) {
+    return frequency[b] - frequency[a];
+  }); // add frequency to the list
+
+  var res = [];
+
+  for (var _i2 = 0; _i2 < uniques.length; _i2++) {
+    res.push([uniques[_i2], frequency[uniques[_i2]]]);
+  }
+
+  return res;
+}
+
+var updateSummary = function updateSummary(summary) {
+  $('#summary-result-count').text(summary.result.length);
+  $('#summary-selected-options').empty();
+
+  var _iterator4 = _createForOfIteratorHelper(summary.selectedRoles),
+      _step4;
+
+  try {
+    for (_iterator4.s(); !(_step4 = _iterator4.n()).done;) {
+      var role = _step4.value;
+      $('#summary-selected-options').append("<span class='badge badge-pill badge-person-info badge-md badge-warning badge-no-text-transform m-1'>" + role + "</span>");
+    }
+  } catch (err) {
+    _iterator4.e(err);
+  } finally {
+    _iterator4.f();
+  }
+
+  var _iterator5 = _createForOfIteratorHelper(summary.selectedStreams),
+      _step5;
+
+  try {
+    for (_iterator5.s(); !(_step5 = _iterator5.n()).done;) {
+      var stream = _step5.value;
+      $('#summary-selected-options').append("<span class='badge badge-pill badge badge-pill badge-person-info badge-md badge-info badge-no-text-transform m-1'>" + stream + "</span>");
+    }
+  } catch (err) {
+    _iterator5.e(err);
+  } finally {
+    _iterator5.f();
+  }
+
+  var _iterator6 = _createForOfIteratorHelper(summary.selectedSkills),
+      _step6;
+
+  try {
+    for (_iterator6.s(); !(_step6 = _iterator6.n()).done;) {
+      var skill = _step6.value;
+      $('#summary-selected-options').append("<span class='badge badge-md badge-secondary m-1'>" + skill + "</span>");
+    }
+  } catch (err) {
+    _iterator6.e(err);
+  } finally {
+    _iterator6.f();
+  }
+};
+
+var filter_person_card_by_slected_options = function filter_person_card_by_slected_options(personCards, selected, type) {
+  var res = personCards.filter(function () {
+    isContain = false;
+    $(this).find(type).each(function () {
+      var _this = this;
+
+      // let selectedLowercase = selected.map(v => v.toLowerCase());
+      // if (selectedLowercase.includes($(this).text().toLowerCase())) {
+      if (selected.some(function (x) {
+        return x.toLowerCase() == $(_this).text().toLowerCase();
+      })) {
+        isContain = true;
+        return;
+      }
+    });
+    return isContain;
+  });
+  return res;
+};
+
+var searchKeyword = function searchKeyword(keyword) {
+  $('span[type=filter-badge-skill]').removeClass("d-none");
+  $('span[type=filter-badge-skill]').each(function () {
+    if ($(this).text().toLowerCase().search(keyword.toLowerCase()) == -1) {
+      $(this).addClass("d-none");
+    }
+  });
+};
+
+skillPriorityBarChart.on('click', function (params) {
+  var modalSelector = '#modal-bar-detail';
+  var filteredPersonData = updateBarDetailModal(modalSelector, params.seriesName, params.name);
+
+  if (filteredPersonData.length) {
+    $(modalSelector).modal();
+  }
+});
+
+var sortByPriority = function sortByPriority() {
+  var selected = {
+    'Fresh': true,
+    'Junior': true,
+    'Proficient': true,
+    'Master': true
+  };
+  skillPriorityBarChart.setOption({
+    legend: {
+      selected: selected
+    }
+  });
+  updateSkillPriorityBarChart('priority', true);
+};
+
+var sortBy = 0;
+
+var sortByParams = function sortByParams() {
+  var keywords = ['Fresh', 'Junior', 'Proficient', 'Master'];
+  var keyword = keywords[sortBy++ % 4];
+  updateSkillPriorityBarChart(keyword);
+  var selected = {
+    'Fresh': false,
+    'Junior': false,
+    'Proficient': false,
+    'Master': false
+  };
+  selected[keyword] = true;
+  skillPriorityBarChart.setOption({
+    legend: {
+      selected: selected
+    }
+  });
+};
+
+var updateBarDetailModal = function updateBarDetailModal(modalSelector, proficiencyName, skillName) {
+  var proficiencyNumber = getProficiencyNumber(proficiencyName);
+  var filteredPersonData = Object.values(rawdata).filter(function (person) {
+    return proficiencyNumber == person['skills'][skillName];
+  });
+  $(modalSelector + ' #modal-bar-detail-title').html("".concat(filteredPersonData.length, " <span style=\"color:red\">").concat(proficiencyName, "</span> in <span style=\"color:red\">").concat(skillName, "</span>"));
+  $(modalSelector + ' .row').html(getPersonCardHtml(filteredPersonData));
+  $('span[type=modal-card-person-skill]').each(function () {
+    if ($(this).text().toLowerCase() == skillName.toLowerCase()) {
+      $(this).addClass("skill-highlight");
+    }
+  });
+  return filteredPersonData;
+};
+
+var getPersonCardHtml = function getPersonCardHtml(personsData) {
+  var res = "";
+
+  var _iterator7 = _createForOfIteratorHelper(personsData),
+      _step7;
+
+  try {
+    for (_iterator7.s(); !(_step7 = _iterator7.n()).done;) {
+      var _personData$proficien, _personData$proficien2, _personData$proficien3, _personData$proficien4;
+
+      var personData = _step7.value;
+      res += "\n        <div type=\"modal-card-person\" class=\"col-sm-12 col-lg-4 col-xl-4\">\n            <div class=\"card my-2 d-flex flex-grow-1 border-0\">\n                <div class=\"card-body\">\n                    <h4 class=\"mb-0\">".concat(personData.name, "</h4>\n                    <div class=\"mb-4\">\n                        <p class=\"text-muted mb-0\">").concat(personData.id, "</p>\n                    </div>\n        ");
+
+      if (personData !== null && personData !== void 0 && (_personData$proficien = personData.proficiency) !== null && _personData$proficien !== void 0 && _personData$proficien.expert) {
+        var _iterator8 = _createForOfIteratorHelper(personData.proficiency.expert),
+            _step8;
+
+        try {
+          for (_iterator8.s(); !(_step8 = _iterator8.n()).done;) {
+            var skill = _step8.value;
+            res += "\n<span type=\"modal-card-person-skill\" class=\"badge badge-md badge-default my-1\">".concat(skill, "</span>");
+          }
+        } catch (err) {
+          _iterator8.e(err);
+        } finally {
+          _iterator8.f();
+        }
+      }
+
+      if (personData !== null && personData !== void 0 && (_personData$proficien2 = personData.proficiency) !== null && _personData$proficien2 !== void 0 && _personData$proficien2.proficient) {
+        var _iterator9 = _createForOfIteratorHelper(personData.proficiency.proficient),
+            _step9;
+
+        try {
+          for (_iterator9.s(); !(_step9 = _iterator9.n()).done;) {
+            var _skill = _step9.value;
+            res += "\n<span type=\"modal-card-person-skill\" class=\"badge badge-md badge-info my-1\">".concat(_skill, "</span>");
+          }
+        } catch (err) {
+          _iterator9.e(err);
+        } finally {
+          _iterator9.f();
+        }
+      }
+
+      if (personData !== null && personData !== void 0 && (_personData$proficien3 = personData.proficiency) !== null && _personData$proficien3 !== void 0 && _personData$proficien3.junior) {
+        var _iterator10 = _createForOfIteratorHelper(personData.proficiency.junior),
+            _step10;
+
+        try {
+          for (_iterator10.s(); !(_step10 = _iterator10.n()).done;) {
+            var _skill2 = _step10.value;
+            res += "\n<span type=\"modal-card-person-skill\" class=\"badge badge-md badge-secondary my-1\">".concat(_skill2, "</span>");
+          }
+        } catch (err) {
+          _iterator10.e(err);
+        } finally {
+          _iterator10.f();
+        }
+      }
+
+      if (personData !== null && personData !== void 0 && (_personData$proficien4 = personData.proficiency) !== null && _personData$proficien4 !== void 0 && _personData$proficien4.fresh) {
+        var _iterator11 = _createForOfIteratorHelper(personData.proficiency.fresh),
+            _step11;
+
+        try {
+          for (_iterator11.s(); !(_step11 = _iterator11.n()).done;) {
+            var _skill3 = _step11.value;
+            res += "\n<span type=\"modal-card-person-skill\" class=\"badge badge-md badge-secondary opacity-50 my-1\">".concat(_skill3, "</span>");
+          }
+        } catch (err) {
+          _iterator11.e(err);
+        } finally {
+          _iterator11.f();
+        }
+      }
+
+      res += "\n                </div>\n            </div>\n        </div>\n        ";
+    }
+  } catch (err) {
+    _iterator7.e(err);
+  } finally {
+    _iterator7.f();
+  }
+
+  return res;
+};
+
+var getProficiencyNumber = function getProficiencyNumber(proficiencyName) {
+  var proficiencyDict = {
+    'Fresh': 0,
+    'Junior': 1,
+    'Proficient': 2,
+    'Master': 3
+  };
+  return proficiencyDict[proficiencyName];
+};
+
+var addSkillPriorityToDict = function addSkillPriorityToDict(skillsCount) {
+  var skillPriority = departmentSkills; // $.ajax({
+  //     type: 'GET',
+  //     url: '/skillset/public/js/skill_priority.json',
+  //     dataType: 'json',
+  //     success: function(data) {skillPriority= data},
+  //     data: {},
+  //     async: false
+  // });
+
+  for (var key in skillsCount) {
+    var priority = skillPriority[key];
+    skillsCount[key]['priority'] = typeof priority == "undefined" ? 999 : priority;
+  }
+
+  return skillsCount;
+};
+
+var updateSkillPriorityBarChart = function updateSkillPriorityBarChart(sortKey) {
+  var reverse = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+  // get selected options
+  var skillsCount = getSkillsCount(rawdata);
+  skillsCount = addSkillPriorityToDict(skillsCount);
+  var skills = Object.keys(skillsCount);
+
+  if (sortKey) {
+    skills = Object.keys(skillsCount).sort(function (a, b) {
+      if (reverse) {
+        return skillsCount[a][sortKey] - skillsCount[b][sortKey];
+      } else {
+        return skillsCount[b][sortKey] - skillsCount[a][sortKey];
+      }
+    });
+  }
+
+  var stackedData = getDataForStackedBarChart(skillsCount, skills);
+  skillPriorityBarChart.setOption({
+    xAxis: {
+      data: skills
+    },
+    series: [{
+      name: 'Fresh',
+      data: stackedData['Fresh']
+    }, {
+      name: 'Junior',
+      data: stackedData['Junior']
+    }, {
+      name: 'Proficient',
+      data: stackedData['Proficient']
+    }, {
+      name: 'Master',
+      data: stackedData['Master']
+    }, {
+      name: 'Proficiency Index',
+      data: stackedData['Proficiency Index']
+    }]
+  });
+};
+
+function getSkillsCount(rawdata) {
+  var skillsCount = {};
+  var skills = departmentSkills;
+
+  var _iterator12 = _createForOfIteratorHelper(skills),
+      _step12;
+
+  try {
+    for (_iterator12.s(); !(_step12 = _iterator12.n()).done;) {
+      var s = _step12.value;
+      skillsCount[s] = {
+        'Fresh': 0,
+        'Junior': 0,
+        'Proficient': 0,
+        'Master': 0
+      };
+    }
+  } catch (err) {
+    _iterator12.e(err);
+  } finally {
+    _iterator12.f();
+  }
+
+  Object.values(rawdata).forEach(function (person) {
+    for (var _i3 = 0, _Object$entries = Object.entries(person.skills); _i3 < _Object$entries.length; _i3++) {
+      var _Object$entries$_i = _slicedToArray(_Object$entries[_i3], 2),
+          key = _Object$entries$_i[0],
+          value = _Object$entries$_i[1];
+
+      if (!(key in skillsCount)) continue;
+
+      switch (value) {
+        case 0:
+          skillsCount[key]['Fresh'] += 1;
+          break;
+
+        case 1:
+          skillsCount[key]['Junior'] += 1;
+          break;
+
+        case 2:
+          skillsCount[key]['Proficient'] += 1;
+          break;
+
+        case 3:
+          skillsCount[key]['Master'] += 1;
+          break;
+
+        default:
+          break;
+      }
+    }
+  });
+  return skillsCount;
+}
+
+function getDataForStackedBarChart(skillsCount, skills) {
+  var stackedData = {
+    'Fresh': [],
+    'Junior': [],
+    'Proficient': [],
+    'Master': [],
+    'Proficiency Index': []
+  };
+
+  var _iterator13 = _createForOfIteratorHelper(skills),
+      _step13;
+
+  try {
+    for (_iterator13.s(); !(_step13 = _iterator13.n()).done;) {
+      var skill = _step13.value;
+      stackedData['Fresh'].push(skillsCount[skill]['Fresh']);
+      stackedData['Junior'].push(skillsCount[skill]['Junior']);
+      stackedData['Proficient'].push(skillsCount[skill]['Proficient']);
+      stackedData['Master'].push(skillsCount[skill]['Master']);
+    }
+  } catch (err) {
+    _iterator13.e(err);
+  } finally {
+    _iterator13.f();
+  }
+
+  stackedData['Proficiency Index'] = getProficiencyIndex(stackedData);
+  return stackedData;
+}
+
+function getProficiencyIndex(stackedData) {
+  var res = [];
+
+  for (var i = 0; i < stackedData['Fresh'].length; i++) {
+    var proficiencyIndex = Math.round(stackedData['Fresh'][i] * 0 + stackedData['Junior'][i] * 0.34 + stackedData['Proficient'][i] * 0.67 + stackedData['Master'][i] * 1);
+    res.push(proficiencyIndex);
+  }
+
+  return res;
+}
+
+var initSkillPriorityChart = function initSkillPriorityChart() {
+  skillPriorityBarChart.setOption({
+    toolbox: {
+      feature: {
+        mySortByParams: {
+          show: true,
+          icon: 'path://M0 11.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-2zm4-3a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5v5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-5zm4-3a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-8zm4-3a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5v11a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-11z',
+          onclick: sortByParams
+        },
+        mySortByPriority: {
+          show: true,
+          icon: 'path://M2.5 2v6h6M2.66 15.57a10 10 0 1 0 .57-8.38',
+          onclick: sortByPriority
+        }
+      }
+    }
+  });
+  updateSkillPriorityBarChart('priority', true);
+};
+
+initSkillPriorityChart();
